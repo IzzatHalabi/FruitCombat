@@ -45,8 +45,11 @@ public class Main extends Application {
     public int timerToStop = 20;
 
 
-    Sprite sprite = new Sprite( "background2.jpg", "advnt_full.png", "advnt_full2.png",
-            "tomato.png", "watermelon.png", "opening.jpg", "ending.jpg" );
+    Sprite sprite = new Sprite(
+            "images/background2.jpg", "images/advnt_full.png",
+            "images/advnt_full2.png", "images/tomato.png",
+            "images/watermelon.png", "images/opening.jpg",
+            "images/ending.jpg" );
 
     ArrayList<Player> player = new ArrayList<Player>();
     FruitGroup fruitGroup[] = new FruitGroup[2];
