@@ -1,5 +1,13 @@
 package sample;
 
+import sample.Fruits.Fruit;
+import sample.Fruits.FruitGroup;
+import sample.Fruits.FruitPocket;
+import sample.Fruits.Tomato;
+import sample.State.*;
+
+import static sample.Config.*;
+
 public class Player {
 
     private Position pos = new Position();
@@ -18,19 +26,9 @@ public class Player {
     private boolean dead;
     private boolean attacking;
 
+    private ActionState status;
 
-    public final static int STUN_FIXED_TIMER = 80;
-    public final static int GUARD_FIXED_TIMER = 40;
-    public final static int HIT_FIXED_TIMER = 15;
-    public final static int ATTACKING_FIXED_TIMER = 10;
-
-    public final static int PLAYER1 = 0;
-    public final static int PLAYER2 = 1;
-    public final static int STARTING_HP = 100;
-    public final static int FLY_SPEED = 70;
-    public final static int GRAVITY = 2;
-
-
+    private FruitPocket pocket;
 
     // SPECIAL FUNCTION ///
     public Player( int playerNum, int posX, int posY ){
@@ -38,23 +36,31 @@ public class Player {
         pos.setX( posX );
         pos.setY( posY );
         hitPoint = STARTING_HP;
+        status = new IdleGroundState(playerNum, 0, 0);
+
+
     }
 
     public void fly(){
-        if ( pos.getY() >= Main.CLOUD )
+        if ( pos.getY() >= CLOUD )
             pos.setY( pos.getY() - FLY_SPEED);
         flying = true;
     }
 
     public void fall(){
-        if ( pos.getY() <= Main.GROUND )
+        if ( pos.getY() <= GROUND )
             pos.setY( pos.getY() + GRAVITY);
         flying = false;
     }
 
-    public void guard(){
-        guardOn = true;
-        guardTimer = GUARD_FIXED_TIMER;
+    public void guard(int currentTimer){
+        status = new GuardState(playerNum, currentTimer, ATTACKING_FIXED_TIMER);
+    }
+
+    public void checkStatus(int currentTimer) {
+        if (! status.isActive(currentTimer)) {
+            status = new IdleGroundState(playerNum, currentTimer, 0);
+        }
     }
 
     public void guardStatus(){
@@ -82,12 +88,14 @@ public class Player {
             attacking = false;
     }
 
+    public void beingHit() {
+
+    }
+
 
     public boolean statusMove(){
-        if ( stunOn || beingHit || guardOn || attacking )
-            return false;
-        else
-            return true;
+        return ! (status instanceof StunState
+                || status instanceof BeingHitState);
     }
 
     public boolean checkHitPoint(){
@@ -96,19 +104,18 @@ public class Player {
         return dead;
     }
 
-    public Fruit attack( Fruit prevFruit ){
-        attacking = true;
-        attackingTimer = ATTACKING_FIXED_TIMER;
-        return new Fruit( playerNum, prevFruit, pos.getX(), pos.getY(),
-                Fruit.TOMATO, Fruit.TOMATO_DAMAGE, Fruit.TOMATO_STUN);
+    public Fruit attack(Fruit prevFruit , int currentTimer){
+
+        status = new AttackState(playerNum, currentTimer, ATTACKING_FIXED_TIMER);
+
+        return new Tomato(playerNum, prevFruit, pos);
     }
 
-    public Fruit specialAttack( Fruit prevFruit ) {
-        attacking = true;
-        attackingTimer = ATTACKING_FIXED_TIMER;
-        return new Fruit( playerNum, prevFruit, pos.getX(), pos.getY(),
-                Fruit.WATERMELON, Fruit.WATERMELON_DAMAGE, Fruit.WATERMELON_STUN );
+    public Fruit specialAttack( Fruit prevFruit, int currentTimer ) {
 
+        status = new AttackState(playerNum, currentTimer, ATTACKING_FIXED_TIMER);
+
+        return new Watermelon(playerNum, prevFruit, pos);
     }
 
 
@@ -174,4 +181,20 @@ public class Player {
     public String getName() { return name; }
 
     public void setName(String name) { this.name = name; }
+
+    public ActionState getStatus() {
+        return status;
+    }
+
+    public void setStatus(ActionState status) {
+        this.status = status;
+    }
+
+    public FruitPocket getPocket() {
+        return pocket;
+    }
+
+    public void setPocket(FruitPocket pocket) {
+        this.pocket = pocket;
+    }
 }

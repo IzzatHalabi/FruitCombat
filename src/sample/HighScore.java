@@ -2,10 +2,6 @@ package sample;
 
 public class HighScore {
 
-    public final static int DAMAGE_SCORE = -5;
-    public final static int STUN_SCORE = -5;
-    public final static int GUARD_SCORE = 10;
-
     public static Player winner;
 
     private int score;
@@ -24,7 +20,6 @@ public class HighScore {
             winner = p2;
         else
             winner = p1;
-
     }
 
 

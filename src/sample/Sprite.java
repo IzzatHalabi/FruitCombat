@@ -4,6 +4,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import sample.Fruits.Fruit;
+
+import static sample.Config.*;
 
 public class Sprite {
 
@@ -36,7 +39,7 @@ public class Sprite {
 
     /////       ACTION SPRITE       /////
     public void idle( Player p ){
-        if ( p.getPlayerNum() == Player.PLAYER1 )
+        if ( p.getPlayerNum() == PLAYER_1)
             organizeImage( imagePlayer1, 0, 3, 0, -40, 40, 80 );
         else
             organizeImage( imagePlayer2, 290, 3, -10, -40, 35, 80 );
@@ -45,7 +48,7 @@ public class Sprite {
 
 
     public void idleFlying( Player p ) {
-        if ( p.getPlayerNum() == Player.PLAYER1 )
+        if ( p.getPlayerNum() == PLAYER_1)
             organizeImage( imagePlayer1, 290, 65, -15, -37, 32, 80 );
         else
             organizeImage( imagePlayer2, 0, 65, -10, -40, 35, 80 );
@@ -54,7 +57,7 @@ public class Sprite {
 
 
     public void guard( Player p ){
-        if ( p.getPlayerNum() == Player.PLAYER1 )
+        if ( p.getPlayerNum() == PLAYER_1)
             organizeImage( imagePlayer1, 290, 133, -15, -37, 32, 80 );
         else
             organizeImage( imagePlayer2, 0, 133, -8, -37, 32, 80 );
@@ -63,7 +66,7 @@ public class Sprite {
 
 
     public void attacking( Player p ){
-        if ( p.getPlayerNum() == Player.PLAYER1 )
+        if ( p.getPlayerNum() == PLAYER_1)
             organizeImage( imagePlayer1, 160, 133, 10, -35, 35, 79 );
         else
             organizeImage( imagePlayer2, 125, 133, -33, -38, 35, 79 );
@@ -72,7 +75,7 @@ public class Sprite {
 
 
     public void stunned( Player p ){
-        if ( p.getPlayerNum() == Player.PLAYER1 )
+        if ( p.getPlayerNum() == PLAYER_1)
             organizeImage( imagePlayer1, 62, 68, -30, -40, 32, 79 );
         else
             organizeImage( imagePlayer2, 230, 65, 12, -47, 32, 79 );
@@ -81,7 +84,7 @@ public class Sprite {
 
 
     public void beingHit( Player p ){
-        if ( p.getPlayerNum() == Player.PLAYER1 )
+        if ( p.getPlayerNum() == PLAYER_1)
             organizeImage( imagePlayer1, 130, 65, -20, -50, 32, 79 );
         else
             organizeImage( imagePlayer2, 165, 65, 12, -47, 32, 79 );
@@ -90,7 +93,7 @@ public class Sprite {
 
 
 
-    /////       SELECTING IMAGES FROM SPRITESHEET AND MANAGE THOSE IMAGES       /////
+    /////       SELECTING IMAGES FROM SPRITE SHEET AND MANAGE THOSE IMAGES       /////
     public void organizeImage( Image imagePlayer, int imgListX, int imgListY, int configX, int configY, int width, int height ){
         reader = imagePlayer.getPixelReader();
         imgListPos.setX( imgListX );
@@ -123,17 +126,33 @@ public class Sprite {
         gc.drawImage( newImage, spritePos.getX(), spritePos.getY(), 100, 210 );
     }
 
+    public void drawSprite_New( GraphicsContext gc, Player p){
+
+        int[] sc = p.getStatus().getStatusConfig();
+
+        if ( p.getPlayerNum() == PLAYER_1)
+            organizeImage( imagePlayer1, sc[0], sc[1], sc[2], sc[3], sc[4], sc[5] );
+        else
+            organizeImage( imagePlayer2, sc[0], sc[1], sc[2], sc[3], sc[4], sc[5] );
+
+        assignPos( p );
+
+        gc.drawImage( newImage, spritePos.getX(), spritePos.getY(), 100, 210 );
+
+//        System.out.println(p.getStatus().getClass().toString());
+    }
+
 
     public void drawFruit ( GraphicsContext gc, Fruit f ){
-        if ( f.getFruitType() == Fruit.TOMATO )
-            gc.drawImage( imageTomato, f.getPos().getX(), f.getPos().getY(), Main.FRUIT_WIDTH,  Main.FRUIT_HEIGHT);
+        if ( f.getFruitType() == TOMATO )
+            gc.drawImage( imageTomato, f.getPos().getX(), f.getPos().getY(), FRUIT_WIDTH,  FRUIT_HEIGHT);
         else
-            gc.drawImage( imageWatermelon, f.getPos().getX(), f.getPos().getY(), Main.FRUIT_WIDTH,  Main.FRUIT_HEIGHT);
+            gc.drawImage( imageWatermelon, f.getPos().getX(), f.getPos().getY(), FRUIT_WIDTH,  FRUIT_HEIGHT);
     }
 
 
     public void drawBackground( GraphicsContext gc ){
-        gc.drawImage( imageBackground,0,0, Main.FRAME_WIDTH, Main.FRAME_HEIGHT);
+        gc.drawImage( imageBackground,0,0, FRAME_WIDTH, FRAME_HEIGHT);
     }
 
 
