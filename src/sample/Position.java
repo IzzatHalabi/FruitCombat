@@ -11,6 +11,11 @@ public class Position {
     /////       FUNCTIONS       /////
     public  Position(){}
 
+    public  Position(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
 
     /////       SETTER AND GETTER       /////
     public int getX() {

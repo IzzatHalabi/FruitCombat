@@ -1,6 +1,6 @@
 package sample.Fruits;
 
-import sample.Player;
+import sample.Players.Player;
 import sample.Position;
 
 import java.util.ArrayList;
@@ -21,20 +21,15 @@ public abstract class Fruit {
     private Player victim;
     private int stunTimer;
 
+    private boolean enable = true;
+    private int direction;
+    private int throwStart;
+
     public abstract void hitEffects(int currentTime);
 
     /// SPECIAL FUNCTION ///
     public Fruit(int id) {
         this.id = id;
-        victim = null;
-        stunTimer = 0;
-    }
-
-    public Fruit ( int origPosX, int origPosY ){
-        pos.setOrigX( origPosX );
-        pos.setOrigY( origPosY );
-        returnToStore();
-
         victim = null;
         stunTimer = 0;
     }
@@ -59,18 +54,39 @@ public abstract class Fruit {
         this.stunTimer = stunTimer;
     }
 
-    public void init(int origPosX, int origPosY) {
-        pos.setOrigX( origPosX );
-        pos.setOrigY( origPosY );
+    public Fruit(int fruitType, int damage, boolean canStun, int stunTimer){
+        this.fruitType = fruitType;
+        this.damage = damage;
+        this.canStun = canStun;
+        hitOnce = false;
+        standBy = false;
+        victim = null;
+        this.stunTimer = stunTimer;
+
+        direction = 0;
+        throwStart = 0;
+    }
+
+    public void throwInit(int id, Position playerPos, int direction, int throwStart) {
+
+        this.id = id;
+        this.direction = direction;
+        this.throwStart = throwStart;
+
+        pos.setX(playerPos.getX() + throwStart);
+        pos.setY(playerPos.getY() + (PLAYER_HEIGHT/4));
+    }
+
+    public void init(Position pocketPos) {
+        pos.setOrigX(pocketPos.getX());
+        pos.setOrigY(pocketPos.getY());
         returnToStore();
     }
 
     public void move(){
-        if ( !standBy )
-            if ( playerNum == PLAYER_1)
-                pos.setX( pos.getX() + SPEED );
-            else if ( playerNum == PLAYER_2)
-                pos.setX( pos.getX() - SPEED );
+        if (! standBy) {
+            pos.setX(pos.getX() + direction);
+        }
     }
 
     public void returnToStore(){
@@ -84,6 +100,9 @@ public abstract class Fruit {
 
         for (Player player : players) {
             if (! hitCondition(player.getPos())) continue;
+
+            System.out.println("Fruit ID: " + id);
+
             victim = player;
 
             return true;
@@ -129,6 +148,46 @@ public abstract class Fruit {
 
     public void setVictim(Player victim) {
         this.victim = victim;
+    }
+
+    public boolean isHitOnce() {
+        return hitOnce;
+    }
+
+    public void setHitOnce(boolean hitOnce) {
+        this.hitOnce = hitOnce;
+    }
+
+    public void setStandBy(boolean standBy) {
+        this.standBy = standBy;
+    }
+
+    public void enable() {
+        enable = true;
+    }
+
+    public void disable() {
+        enable = false;
+    }
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getDirection() {
+        return direction;
     }
 }
 

@@ -25,29 +25,20 @@ import javafx.stage.Stage;
 import sample.Fruits.FruitGroup;
 import sample.Players.Player;
 import sample.Players.PlayerGroup;
+import sample.TestIdea.Controller;
 
 import java.util.ArrayList;
 import static sample.Config.*;
 
-public class Main extends Application {
+public class MainTemp extends Application {
 
+    public static int time = 0;
     public int timerToStop = 20;
 
-    public int time = 0;
-
-    Sprite sprite = new Sprite(
-            "images/background2.jpg", "images/advnt_full.png",
-            "images/advnt_full2.png", "images/tomato.png",
-            "images/watermelon.png", "images/opening.jpg",
-            "images/ending.jpg" );
-
-    ArrayList<Player> players = new ArrayList<Player>();
-    FruitGroup fruitGroup[] = new FruitGroup[2];
-
-    FruitGroup fg;
-
-    FruitGroup fgLatest;
-
+    private Sprite sprite;
+    private Controller controller;
+    private FruitGroup fruitGroup;
+    private PlayerGroup playerGroup;
 
     ///     START THE GAME BY GOING TO START_STAGE FIRST    ///
     @Override
@@ -56,22 +47,17 @@ public class Main extends Application {
     }
 
 
-    public Main(){
+    public MainTemp(){
 
-        players.add( new Player(PLAYER_1, P1_POS_X, GROUND ) );
-        players.add( new Player(PLAYER_2, P2_POS_X, GROUND ) );
+        sprite = new Sprite(
+                "images/background2.jpg", "images/advnt_full.png",
+                "images/advnt_full2.png", "images/tomato.png",
+                "images/watermelon.png", "images/opening.jpg",
+                "images/ending.jpg" );
 
-//        for ( int i = 0; i < NUM_PLAYER; i++ )
-//            fruitGroup[i] = new FruitGroup();
-//        for (int i = 0; i < NUM_FRUIT_EACH; i++) {
-//            fruitGroup[PLAYER_1].add( new Tomato(20 + i * FRUIT_WIDTH, 45) );
-//            fruitGroup[PLAYER_2].add( new Tomato(FRAME_WIDTH - 120 + i* FRUIT_WIDTH, 45) );
-//        }
-//
-//        fg = new FruitGroup(players.get(0), players.get(1));
-
-
-        fgLatest = new FruitGroup(new PlayerGroup()); // THIS IMMEDIATELY BROKEN. DONT USE THIS CLASS
+        playerGroup = new PlayerGroup();
+        fruitGroup = new FruitGroup(playerGroup);
+        controller = new Controller(playerGroup);
     }
 
 
@@ -93,8 +79,8 @@ public class Main extends Application {
         Scene scene = new Scene(root, Color.WHITE);
 
         HBox hBox = new HBox(FRAME_WIDTH - 170);
-        Text text1 = new Text( players.get(PLAYER_1).getName() );
-        Text text2 = new Text( players.get(PLAYER_2).getName());
+        Text text1 = new Text( playerGroup.get(PLAYER_1).getName() );
+        Text text2 = new Text( playerGroup.get(PLAYER_2).getName());
 
         text1.setFill( Color.WHITE );
         text1.setStroke( Color.BLACK );
@@ -113,59 +99,32 @@ public class Main extends Application {
             public void handle(KeyEvent event) {
 
                 /////       PLAYER 1      /////
-//                if ( players.get(PLAYER_1).statusMove() ) {
-                    if (event.getCode() == KeyCode.W) {
-                        players.get(PLAYER_1).fly(); // DONE
-                    }
-                    if (event.getCode() == KeyCode.A) {
-                        for (int i = 0; i < NUM_FRUIT_EACH; i++) {
-                            if (fruitGroup[PLAYER_1].getFruitList().get(i).isStandBy()) {
-//                                fruitGroup[PLAYER_1].getFruitList().set(i, players.get(PLAYER_1).attack( fruitGroup[PLAYER_1].getFruitList().get(i), time ));
-                                break;
-                            }
-                        }
-                    }
-                    if (event.getCode() == KeyCode.D) {
-                        for (int i = 0; i < NUM_FRUIT_EACH; i++) {
-                            if (fruitGroup[PLAYER_1].getFruitList().get(i).isStandBy()) {
-//                                fruitGroup[PLAYER_1].getFruitList().set(i, players.get(PLAYER_1).specialAttack( fruitGroup[PLAYER_1].getFruitList().get(i), time ));
-                                break;
-                            }
-                        }
-                    }
-                    if (event.getCode() == KeyCode.S) {
-//                        if ( players.get(PLAYER_1).getGuardTimer() <= 0)
-//                            players.get(PLAYER_1).guard(time);
-                    }
-//                }
-
+                if (event.getCode() == KeyCode.W) {
+                    controller.fly(PLAYER_1);
+                }
+                else if (event.getCode() == KeyCode.A) {
+                    controller.attack(PLAYER_1);
+                }
+                else if (event.getCode() == KeyCode.D) {
+                    controller.specialAttack(PLAYER_1);
+                }
+                else if (event.getCode() == KeyCode.S) {
+                    controller.guard(PLAYER_1);
+                }
 
                 /////       PLAYER 2         /////
-//                if ( players.get(PLAYER_2).statusMove() ) {
-                    if (event.getCode() == KeyCode.UP) {
-                        players.get(PLAYER_2).fly();
-                    }
-                    if (event.getCode() == KeyCode.LEFT) {
-                        for (int i = 0; i < NUM_FRUIT_EACH; i++) {
-                            if (fruitGroup[PLAYER_2].getFruitList().get(i).isStandBy()) {
-//                                fruitGroup[PLAYER_2].getFruitList().set(i, players.get(PLAYER_2).attack( fruitGroup[PLAYER_2].getFruitList().get(i), time ));
-                                break;
-                            }
-                        }
-                    }
-                    if (event.getCode() == KeyCode.RIGHT) {
-                        for (int i = 0; i < NUM_FRUIT_EACH; i++) {
-                            if (fruitGroup[PLAYER_2].getFruitList().get(i).isStandBy()) {
-//                                fruitGroup[PLAYER_2].getFruitList().set(i, players.get(PLAYER_2).specialAttack( fruitGroup[PLAYER_2].getFruitList().get(i), time ));
-                                break;
-                            }
-                        }
-                    }
-                    if (event.getCode() == KeyCode.DOWN) {
-//                        if ( players.get(PLAYER_2).getGuardTimer() <= 0)
-//                            players.get(PLAYER_2).guard(time);
-                    }
-//                }
+                if (event.getCode() == KeyCode.UP) {
+                    controller.fly(PLAYER_2);
+                }
+                else if (event.getCode() == KeyCode.LEFT) {
+                    controller.attack(PLAYER_2);
+                }
+                else if (event.getCode() == KeyCode.RIGHT) {
+                    controller.specialAttack(PLAYER_2);
+                }
+                else if (event.getCode() == KeyCode.DOWN) {
+                    controller.guard(PLAYER_2);
+                }
             }
         });
 
@@ -182,24 +141,10 @@ public class Main extends Application {
 
                 drawShapes(gc);
 
-                for ( int i = 0; i < NUM_PLAYER; i++ ) {
-                    for (int j = 0; j < NUM_FRUIT_EACH; j++) {
+                playerGroup.update(time);
+                fruitGroup.update(time);
 
-                        fruitGroup[i].getFruitList().get(j).move();
-
-                        if (fruitGroup[i].getFruitList().get(j).hitCheck(players)) {
-                            fruitGroup[i].getFruitList().get(j).hitEffects(time);
-                            fruitGroup[i].getFruitList().get(j).returnToStore();
-                        }
-
-                        if (fruitGroup[i].getFruitList().get(j).checkOutOfBound()) {
-                            fruitGroup[i].getFruitList().get(j).returnToStore();
-                        }
-                    }
-                    players.get(i).fall();
-                    players.get(i).checkStatus(time);
-                }
-                gameOver(this, players.get(PLAYER_1), players.get(PLAYER_2), primaryStage);
+                gameOver(this, playerGroup.get(PLAYER_1), playerGroup.get(PLAYER_2), primaryStage);
 
             }
         };
@@ -224,21 +169,21 @@ public class Main extends Application {
         gc.strokeLine(0, CLOUD, FRAME_WIDTH, CLOUD);
 
         /////   DRAW PLAYER BODY AND ACTIONS      /////
-        for (Player player : players) {
+        for (Player player : playerGroup.getPlayers()) {
             sprite.drawSprite_New(gc, player);
         }
 
         /////   DRAW FRUIT AND CHECK FRUIT TYPE     /////
-        for ( int i = 0; i < NUM_PLAYER; i++ )
-            for ( int j = 0; j < NUM_FRUIT_EACH; j++ )
-                sprite.drawFruit( gc, fruitGroup[i].getFruitList().get(j) );
+        for (int i = 0; i < TOTAL_NUM_FRUIT; i++) {
+            sprite.drawFruit(gc, fruitGroup.getFruit(i));
+        }
 
         /////   DRAW HITPOINT INDICATOR     /////
         gc.setFill( Color.GREEN );
-        for (int i = 0; i < players.get(PLAYER_1).getHitPoint(); i += 10 )
+        for (int i = 0; i < playerGroup.get(PLAYER_1).getHitPoint(); i += 10 )
             gc.fillRect(20 + i, 20, HP_WIDTH, HP_HEIGHT);
 
-        for (int i = 0; i < players.get(PLAYER_2).getHitPoint(); i += 10 )
+        for (int i = 0; i < playerGroup.get(PLAYER_2).getHitPoint(); i += 10 )
             gc.fillRect(FRAME_WIDTH - 120 + i, 20, HP_WIDTH, HP_HEIGHT);
 
         gc.setStroke( Color.BLACK );
@@ -331,8 +276,8 @@ public class Main extends Application {
             ///     START THE GAME      ///
             @Override
             public void handle(ActionEvent event) {
-                players.get(PLAYER_1).setName( String.valueOf( textField1.getText() ) );
-                players.get(PLAYER_2).setName( String.valueOf( textField2.getText() ) );
+                playerGroup.get(PLAYER_1).setName( String.valueOf( textField1.getText() ) );
+                playerGroup.get(PLAYER_2).setName( String.valueOf( textField2.getText() ) );
                 gameStage( primaryStage );
             }
         });

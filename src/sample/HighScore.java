@@ -1,5 +1,7 @@
 package sample;
 
+import sample.Players.Player;
+
 public class HighScore {
 
     public static Player winner;

@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import sample.Fruits.Fruit;
+import sample.Players.Player;
 
 import static sample.Config.*;
 
@@ -120,7 +121,7 @@ public class Sprite {
                 SO THERE'S A NEED OF ADJUSTMENT
 
                 EG:
-        gc.drawImage( newImage, spritePos.getX(), spritePos.getY(), Main.PLAYER_WIDTH, Main.PLAYER_HEIGHT );
+        gc.drawImage( newImage, spritePos.getX(), spritePos.getY(), sample.Main.PLAYER_WIDTH, sample.Main.PLAYER_HEIGHT );
         */
 
         gc.drawImage( newImage, spritePos.getX(), spritePos.getY(), 100, 210 );

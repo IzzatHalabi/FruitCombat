@@ -16,6 +16,8 @@ public class Config {
     public final static int GRAVITY = 2;
 
     public final static int SPEED = 5;
+    public final static int MOVE_DIRECTION_LEFT = -SPEED;
+    public final static int MOVE_DIRECTION_RIGHT = SPEED;
     public final static int TOMATO = 1;
     public final static int WATERMELON = 2;
     public final static int TOMATO_DAMAGE = 10;
@@ -38,6 +40,9 @@ public class Config {
     public final static int GROUND = FRAME_HEIGHT - PLAYER_HEIGHT - 75;
     public final static int P1_POS_X = 100;
     public final static int P2_POS_X = FRAME_WIDTH - PLAYER_WIDTH - P1_POS_X;
+
+    public final static int P1_THROW_START = PLAYER_WIDTH;
+    public final static int P2_THROW_START = -FRUIT_WIDTH;
 
     public final static int DAMAGE_SCORE = -5;
     public final static int STUN_SCORE = -5;
