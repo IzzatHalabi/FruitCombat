@@ -5,8 +5,8 @@ import sample.Players.Player;
 public class ActiveResponse implements ResponseState {
 
     @Override
-    public void fly(Player player) {
-        player.fly();
+    public void jump(Player player) {
+        player.jump();
     }
 
     @Override

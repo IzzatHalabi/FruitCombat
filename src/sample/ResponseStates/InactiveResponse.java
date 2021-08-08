@@ -5,7 +5,7 @@ import sample.Players.Player;
 public class InactiveResponse implements ResponseState {
 
     @Override
-    public void fly(Player player) {
+    public void jump(Player player) {
 
     }
 

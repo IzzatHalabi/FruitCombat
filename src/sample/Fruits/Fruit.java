@@ -11,76 +11,44 @@ public abstract class Fruit {
 
     private int id;
     private Position pos = new Position();
-    private int playerNum = 0;
-    private int fruitType = 1;
-    private int damage = 0;
-    private boolean canStun = false;
+    private int fruitType;
+    private int damage;
     private boolean hitOnce = false;
     private boolean standBy = true;
-
     private Player victim;
-    private int stunTimer;
-
-    private boolean enable = true;
     private int direction;
-    private int throwStart;
 
-    public abstract void hitEffects(int currentTime);
+    private int attackLevel;
+    private int hitDuration;
+
+    public abstract void hitEffects();
 
     /// SPECIAL FUNCTION ///
     public Fruit(int id) {
         this.id = id;
         victim = null;
-        stunTimer = 0;
+        fruitType = TOMATO;
     }
 
-    public Fruit( int playerNum, Fruit prevFruit, int posX, int posY, int fruitType, int damage, boolean canStun, int stunTimer){
-        this.playerNum = playerNum;
+    public Fruit(int fruitType, int damage, int attackLevel, int hitDuration){
         this.fruitType = fruitType;
         this.damage = damage;
-        this.canStun = canStun;
-        hitOnce = false;
-        standBy = false;
-        pos = prevFruit.pos;
+        this.attackLevel = attackLevel;
+        this.hitDuration = hitDuration;
 
-        if ( playerNum == PLAYER_1)
-            pos.setX( posX + PLAYER_WIDTH);
-        else if ( playerNum == PLAYER_2)
-            pos.setX( posX - FRUIT_WIDTH);
-
-        pos.setY( posY + ( PLAYER_HEIGHT / 4) );
-
-        victim = null;
-        this.stunTimer = stunTimer;
-    }
-
-    public Fruit(int fruitType, int damage, boolean canStun, int stunTimer){
-        this.fruitType = fruitType;
-        this.damage = damage;
-        this.canStun = canStun;
         hitOnce = false;
         standBy = false;
         victim = null;
-        this.stunTimer = stunTimer;
-
         direction = 0;
-        throwStart = 0;
     }
 
     public void throwInit(int id, Position playerPos, int direction, int throwStart) {
 
         this.id = id;
         this.direction = direction;
-        this.throwStart = throwStart;
 
         pos.setX(playerPos.getX() + throwStart);
         pos.setY(playerPos.getY() + (PLAYER_HEIGHT/4));
-    }
-
-    public void init(Position pocketPos) {
-        pos.setOrigX(pocketPos.getX());
-        pos.setOrigY(pocketPos.getY());
-        returnToStore();
     }
 
     public void move(){
@@ -146,14 +114,6 @@ public abstract class Fruit {
         return victim;
     }
 
-    public void setVictim(Player victim) {
-        this.victim = victim;
-    }
-
-    public boolean isHitOnce() {
-        return hitOnce;
-    }
-
     public void setHitOnce(boolean hitOnce) {
         this.hitOnce = hitOnce;
     }
@@ -162,32 +122,16 @@ public abstract class Fruit {
         this.standBy = standBy;
     }
 
-    public void enable() {
-        enable = true;
-    }
-
-    public void disable() {
-        enable = false;
-    }
-
-    public boolean isEnable() {
-        return enable;
-    }
-
-    public void setDirection(int direction) {
-        this.direction = direction;
-    }
-
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getAttackLevel() {
+        return attackLevel;
     }
 
-    public int getDirection() {
-        return direction;
+    public int getHitDuration() {
+        return hitDuration;
     }
 }
 

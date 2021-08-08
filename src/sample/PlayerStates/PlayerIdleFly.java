@@ -21,7 +21,7 @@ public class PlayerIdleFly extends PlayerState {
     }
 
     @Override
-    public boolean isActive(int currentTimer) {
+    public boolean isActive() {
         return true;
     }
 }

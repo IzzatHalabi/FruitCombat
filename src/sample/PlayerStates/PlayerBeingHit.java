@@ -9,8 +9,8 @@ import static sample.Config.PLAYER_1;
 
 public class PlayerBeingHit extends PlayerState {
 
-    public PlayerBeingHit(Player player, int statusTimer) {
-        super(player, statusTimer);
+    public PlayerBeingHit(Player player) {
+        super(player);
         if (player.getPlayerNum() == PLAYER_1) {
             setStatusConfig(P1_BEING_HIT);
         } else {

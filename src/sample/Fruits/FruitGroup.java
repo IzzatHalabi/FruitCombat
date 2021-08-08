@@ -1,6 +1,5 @@
 package sample.Fruits;
 
-import sample.Players.Player;
 import sample.Players.PlayerGroup;
 
 import java.util.ArrayList;
@@ -15,29 +14,20 @@ public class FruitGroup {
     /////  FUNCTIONS   /////
     public FruitGroup(PlayerGroup playerGroup) {
 
-        fruitList = new ArrayList<>();
-
         this.playerGroup = playerGroup;
 
         Fruit currentFruit;
         FruitPocket pocket;
-
-        int currentId;
+        fruitList = new ArrayList<>();
 
         for (int p = 0; p < NUM_PLAYER; p++) {
 
             pocket = playerGroup.get(p).getPocket();
-
             pocket.setFruitGroup(this);
 
             for (int i = 0; i < NUM_FRUIT_EACH; i++) {
 
-                currentId = i + p*(NUM_FRUIT_EACH);
-
-                System.out.println("Fruit ID Init: " + currentId);
-
-                currentFruit = new Tomato(currentId);
-
+                currentFruit = new Tomato(i + p*(NUM_FRUIT_EACH));
                 pocket.returnToStore(currentFruit);
 
                 fruitList.add(currentFruit);
@@ -45,7 +35,7 @@ public class FruitGroup {
         }
     }
 
-    public void update(int time) {
+    public void update() {
 
         FruitPocket pocket;
 
@@ -60,7 +50,7 @@ public class FruitGroup {
                 fruitOutPocket.move();
 
                 if (fruitOutPocket.hitCheck(playerGroup.getPlayers())) {
-                    fruitOutPocket.hitEffects(time);
+                    fruitOutPocket.hitEffects();
                     pocket.returnToStore(fruitOutPocket);
                 }
 

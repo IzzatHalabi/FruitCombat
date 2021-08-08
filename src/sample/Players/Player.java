@@ -1,9 +1,9 @@
 package sample.Players;
 
+import sample.Fruits.Fruit;
 import sample.Fruits.FruitPocket;
 import sample.Fruits.Tomato;
 import sample.HighScore;
-import sample.MainTemp;
 import sample.Position;
 import sample.PlayerStates.*;
 import sample.Fruits.Watermelon;
@@ -19,7 +19,7 @@ public class Player {
     private int hitPoint;
     private boolean dead;
 
-    private PlayerState status;
+    private PlayerState state;
 
     private FruitPocket pocket;
 
@@ -29,7 +29,7 @@ public class Player {
         pos.setX( posX );
         pos.setY( posY );
         hitPoint = STARTING_HP;
-        status = new PlayerIdleGround(this, 0);
+        state = new PlayerIdleGround(this);
 
         Position pos;
         if (playerNum == PLAYER_1) {
@@ -41,7 +41,7 @@ public class Player {
 
     }
 
-    public void fly(){
+    public void jump(){
         if ( pos.getY() >= CLOUD ) pos.setY( pos.getY() - FLY_SPEED);
     }
 
@@ -50,23 +50,22 @@ public class Player {
     }
 
     public void guard(){
-        status = new PlayerGuard(this, ATTACKING_FIXED_TIMER);
+        state = new PlayerGuard(this, GUARD_FIXED_TIMER);
     }
 
     public void attack(){
-        status = new PlayerAttack(this, ATTACKING_FIXED_TIMER);
+        state = new PlayerAttack(this, ATTACKING_FIXED_TIMER);
         pocket.deploy(new Tomato());
     }
 
     public void specialAttack() {
-
-        status = new PlayerAttack(this, ATTACKING_FIXED_TIMER);
+        state = new PlayerAttack(this, ATTACKING_FIXED_TIMER);
         pocket.deploy(new Watermelon());
     }
 
-    public void checkStatus(int currentTimer) {
-        if (status.isActive(currentTimer)) return;
-        status = new PlayerIdleGround(this, 0);
+    public void checkStatus() {
+        if (state.isActive()) return;
+        state = new PlayerIdleGround(this);
     }
 
     public boolean checkHitPoint(){
@@ -83,8 +82,8 @@ public class Player {
         return hitPoint;
     }
 
-    public void setHitPoint(int hitPoint) {
-        this.hitPoint = hitPoint;
+    public void computeDamage(int damage) {
+        hitPoint = hitPoint - damage;
     }
 
     public int getPlayerNum() {
@@ -105,12 +104,21 @@ public class Player {
         this.name = name;
     }
 
-    public PlayerState getStatus() {
-        return status;
+    public PlayerState getState() {
+        return state;
     }
 
-    public void setStatus(PlayerState status) {
-        this.status = status;
+    public void setState(PlayerState newState) {
+        state = newState;
+    }
+
+    public void setState(Fruit fruit, PlayerState newState) {
+        state = state.modifyState(fruit, newState);
+    }
+
+    public void setState(PlayerState newState, int statusTimer) {
+        newState.setEndTimer(statusTimer);
+        state = newState;
     }
 
     public FruitPocket getPocket() {

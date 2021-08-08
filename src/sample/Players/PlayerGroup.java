@@ -16,11 +16,11 @@ public class PlayerGroup {
 
     }
 
-    public void update(int time) {
+    public void update() {
 
         for (Player player : players) {
             player.fall();
-            player.checkStatus(time);
+            player.checkStatus();
         }
     }
 

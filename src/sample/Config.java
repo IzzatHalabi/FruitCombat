@@ -1,7 +1,5 @@
 package sample;
 
-import java.util.ArrayList;
-
 public class Config {
 
     public final static int STUN_FIXED_TIMER = 80;
@@ -12,21 +10,19 @@ public class Config {
     public final static int PLAYER_1 = 0;
     public final static int PLAYER_2 = 1;
     public final static int STARTING_HP = 100;
-    public final static int FLY_SPEED = 70;
+    public final static int FLY_SPEED = 90;
     public final static int GRAVITY = 2;
 
-    public final static int SPEED = 5;
+    public final static int SPEED = 7;
     public final static int MOVE_DIRECTION_LEFT = -SPEED;
     public final static int MOVE_DIRECTION_RIGHT = SPEED;
     public final static int TOMATO = 1;
     public final static int WATERMELON = 2;
     public final static int TOMATO_DAMAGE = 10;
     public final static int WATERMELON_DAMAGE = 0;
-    public final static boolean TOMATO_STUN = false ;
-    public final static boolean WATERMELON_STUN = true;
 
     public final static int NUM_PLAYER = 2;
-    public final static int NUM_FRUIT_EACH = 3;
+    public final static int NUM_FRUIT_EACH = 4;
     public final static int TOTAL_NUM_FRUIT = NUM_FRUIT_EACH*2;
     public final static int PLAYER_WIDTH = 70;
     public final static int PLAYER_HEIGHT = 130;
@@ -47,6 +43,15 @@ public class Config {
     public final static int DAMAGE_SCORE = -5;
     public final static int STUN_SCORE = -5;
     public final static int GUARD_SCORE = 10;
+
+    public final static int ATTACK_LEVEL_1 = 0;
+    public final static int ATTACK_LEVEL_2 = 1;
+    public final static int GUARD_LEVEL_1 = 1;
+
+    public final static int GUARD_EFFECT = 0;
+    public final static int DAMAGE_EFFECT = 1;
+    public final static int SCORE_EFFECT = 2;
+
 
     // ActionStatusConfig
     public final static int[] P1_IDLE_GROUND = new int[]{0, 3, 0, -40, 40, 80};

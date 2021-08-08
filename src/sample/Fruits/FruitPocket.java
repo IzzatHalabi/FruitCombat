@@ -42,17 +42,9 @@ public class FruitPocket {
         if (inPocket.isEmpty()) return;
 
         int fruitId = inPocket.remove(0).getId();
-
         selectedFruit.throwInit(fruitId, player.getPos(), direction, throwStart);
-
         outPocket.add(selectedFruit);
-
         fruitGroup.getFruitList().set(fruitId, selectedFruit);
-
-        System.out.println(player.getPos().getX() + PLAYER_WIDTH);
-        System.out.println(selectedFruit.getPos().getX());
-        System.out.println(selectedFruit.getDirection());
-
     }
 
     public void returnToStore(Fruit fruit) {

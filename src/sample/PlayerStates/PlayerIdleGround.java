@@ -8,8 +8,8 @@ import static sample.Config.*;
 
 public class PlayerIdleGround extends PlayerState {
 
-    public PlayerIdleGround(Player player, int statusTimer) {
-        super(player, statusTimer);
+    public PlayerIdleGround(Player player) {
+        super(player);
         if (player.getPlayerNum() == PLAYER_1) {
             setStatusConfig(P1_IDLE_GROUND);
         } else {
@@ -19,7 +19,7 @@ public class PlayerIdleGround extends PlayerState {
     }
 
     @Override
-    public boolean isActive(int currentTimer) {
+    public boolean isActive() {
         return true;
     }
 }

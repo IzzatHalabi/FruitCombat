@@ -1,13 +1,16 @@
 package sample.PlayerStates;
 
+import sample.Fruits.Fruit;
+import sample.HitEffectProcessor;
 import sample.Players.Player;
+import sample.ResponseStates.ActiveResponse;
 import sample.ResponseStates.InactiveResponse;
 
-import static sample.Config.P1_GUARD;
-import static sample.Config.P2_GUARD;
-import static sample.Config.PLAYER_1;
+import static sample.Config.*;
 
 public class PlayerGuard extends PlayerState {
+
+    private int guardLevel;
 
     public PlayerGuard(Player player, int statusTimer) {
 
@@ -17,6 +20,26 @@ public class PlayerGuard extends PlayerState {
         } else {
             setStatusConfig(P2_GUARD);
         }
-        setResponseState(new InactiveResponse());
+        setResponseState(new ActiveResponse());
+
+        guardLevel = GUARD_LEVEL_1;
     }
+
+    @Override
+    public PlayerState modifyState(Fruit fruit, PlayerState newState) {
+
+
+
+//        if (guardLevel > fruit.getAttackLevel()) return this;
+//
+//        return super.modifyState(fruit, newState);
+
+        return null;
+    }
+
+    public void something() {
+
+    }
+
+
 }

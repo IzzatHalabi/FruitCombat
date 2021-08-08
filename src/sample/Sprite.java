@@ -129,7 +129,7 @@ public class Sprite {
 
     public void drawSprite_New( GraphicsContext gc, Player p){
 
-        int[] sc = p.getStatus().getStatusConfig();
+        int[] sc = p.getState().getStatusConfig();
 
         if ( p.getPlayerNum() == PLAYER_1)
             organizeImage( imagePlayer1, sc[0], sc[1], sc[2], sc[3], sc[4], sc[5] );
@@ -140,7 +140,7 @@ public class Sprite {
 
         gc.drawImage( newImage, spritePos.getX(), spritePos.getY(), 100, 210 );
 
-//        System.out.println(p.getStatus().getClass().toString());
+//        System.out.println(p.getState().getClass().toString());
     }
 
 
