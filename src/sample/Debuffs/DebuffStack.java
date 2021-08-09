@@ -1,6 +1,5 @@
 package sample.Debuffs;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DebuffStack {
@@ -27,6 +26,7 @@ public class DebuffStack {
             if (debuff.isActive()) continue;
 
             System.out.println("Remove " + debuff.info() + " DEBUFF");
+
             debuff.undo();
             debuffs.remove(debuff);
         }
