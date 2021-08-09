@@ -1,10 +1,6 @@
 package sample.TestIdea;
 
-import sample.MainTemp;
-import sample.Players.Player;
 import sample.Players.PlayerGroup;
-
-import java.util.ArrayList;
 
 public class Controller implements ControllerInterface {
 
@@ -16,17 +12,17 @@ public class Controller implements ControllerInterface {
 
     @Override
     public void fly(int playerNum) {
-        playerGroup.get(playerNum).getStatus().fly();
+        playerGroup.get(playerNum).getState().fly();
     }
 
     @Override
     public void attack(int playerNum) {
-        playerGroup.get(playerNum).getStatus().attack();
+        playerGroup.get(playerNum).getState().attack();
     }
 
     @Override
     public void specialAttack(int playerNum) {
-        playerGroup.get(playerNum).getStatus().specialAttack();
+        playerGroup.get(playerNum).getState().specialAttack();
     }
 
     @Override

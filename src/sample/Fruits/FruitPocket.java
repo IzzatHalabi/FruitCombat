@@ -49,9 +49,9 @@ public class FruitPocket {
 
         fruitGroup.getFruitList().set(fruitId, selectedFruit);
 
-        System.out.println(player.getPos().getX() + PLAYER_WIDTH);
-        System.out.println(selectedFruit.getPos().getX());
-        System.out.println(selectedFruit.getDirection());
+//        System.out.println(player.getPos().getX() + PLAYER_WIDTH);
+//        System.out.println(selectedFruit.getPos().getX());
+//        System.out.println(selectedFruit.getDirection());
 
     }
 

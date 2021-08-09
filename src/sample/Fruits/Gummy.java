@@ -1,23 +1,22 @@
 package sample.Fruits;
 
-import sample.Debuffs.StunDebuff;
+import sample.Debuffs.SlowDebuff;
 
 import static sample.Config.*;
 
-public class Watermelon extends Fruit {
+public class Gummy extends Fruit {
 
-    public Watermelon(int id) {
+    public Gummy(int id) {
         super(id);
     }
 
-    public Watermelon() {
-        super(WATERMELON, WATERMELON_DAMAGE, WATERMELON_STUN, STUN_FIXED_TIMER, SPEED);
+    public Gummy() {
+        super(GUMMY, GUMMY_DAMAGE, GUMMY_STUN, HIT_FIXED_TIMER, SPEED);
     }
 
     @Override
     public void hitEffects(int currentTime) {
-
-        StunDebuff debuff = new StunDebuff(getVictim(), STUN_FIXED_TIMER);
+        SlowDebuff debuff = new SlowDebuff(getVictim(), SLOW_FIXED_TIMER, GUMMY_SLOW);
         getVictim().getDebuffs().add(debuff);
 
         System.out.println("PLAYER " + getVictim().getPlayerNum() + " ATTACH " + debuff.info() + " DEBUFF");

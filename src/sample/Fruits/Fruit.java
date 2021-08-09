@@ -24,6 +24,7 @@ public abstract class Fruit {
     private boolean enable = true;
     private int direction;
     private int throwStart;
+    private int speed;
 
     public abstract void hitEffects(int currentTime);
 
@@ -54,10 +55,11 @@ public abstract class Fruit {
         this.stunTimer = stunTimer;
     }
 
-    public Fruit(int fruitType, int damage, boolean canStun, int stunTimer){
+    public Fruit(int fruitType, int damage, boolean canStun, int stunTimer, int speed){
         this.fruitType = fruitType;
         this.damage = damage;
         this.canStun = canStun;
+        this.speed = speed;
         hitOnce = false;
         standBy = false;
         victim = null;
@@ -70,7 +72,7 @@ public abstract class Fruit {
     public void throwInit(int id, Position playerPos, int direction, int throwStart) {
 
         this.id = id;
-        this.direction = direction;
+        this.direction = direction * speed;
         this.throwStart = throwStart;
 
         pos.setX(playerPos.getX() + throwStart);

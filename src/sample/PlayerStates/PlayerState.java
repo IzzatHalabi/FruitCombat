@@ -32,8 +32,8 @@ public abstract class PlayerState {
         responseState.specialAttack(player);
     }
 
-    public boolean isActive(int currentTimer) {
-        return endStatusTimer >= currentTimer;
+    public boolean isActive() {
+        return endStatusTimer >= MainTemp.time;
     }
 
     public int[] getStatusConfig() {
@@ -50,5 +50,9 @@ public abstract class PlayerState {
 
     public void setResponseState(ResponseState responseState) {
         this.responseState = responseState;
+    }
+
+    public int getEndTimer() {
+        return endStatusTimer;
     }
 }

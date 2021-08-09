@@ -1,10 +1,7 @@
 package sample.Fruits;
 
-import sample.Players.Player;
 import sample.Players.PlayerGroup;
-
 import java.util.ArrayList;
-
 import static sample.Config.*;
 
 public class FruitGroup {
@@ -33,8 +30,6 @@ public class FruitGroup {
             for (int i = 0; i < NUM_FRUIT_EACH; i++) {
 
                 currentId = i + p*(NUM_FRUIT_EACH);
-
-                System.out.println("Fruit ID Init: " + currentId);
 
                 currentFruit = new Tomato(currentId);
 

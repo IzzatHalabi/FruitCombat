@@ -1,12 +1,10 @@
 package sample.Players;
 
-import sample.Fruits.FruitPocket;
-import sample.Fruits.Tomato;
+import sample.Debuffs.DebuffStack;
+import sample.Fruits.*;
 import sample.HighScore;
-import sample.MainTemp;
 import sample.Position;
 import sample.PlayerStates.*;
-import sample.Fruits.Watermelon;
 
 import static sample.Config.*;
 
@@ -19,9 +17,13 @@ public class Player {
     private int hitPoint;
     private boolean dead;
 
-    private PlayerState status;
+    private PlayerState state;
 
     private FruitPocket pocket;
+
+    private DebuffStack debuffs;
+
+    private int flySpeed;
 
     // SPECIAL FUNCTION ///
     public Player( int playerNum, int posX, int posY ){
@@ -29,7 +31,7 @@ public class Player {
         pos.setX( posX );
         pos.setY( posY );
         hitPoint = STARTING_HP;
-        status = new PlayerIdleGround(this, 0);
+        state = new PlayerIdleGround(this, 0);
 
         Position pos;
         if (playerNum == PLAYER_1) {
@@ -39,10 +41,15 @@ public class Player {
         }
         pocket = new FruitPocket(this, pos);
 
+        debuffs = new DebuffStack();
+
+        flySpeed = FLY_SPEED;
+
     }
 
     public void fly(){
-        if ( pos.getY() >= CLOUD ) pos.setY( pos.getY() - FLY_SPEED);
+        if ( pos.getY() >= CLOUD ) pos.setY( pos.getY() - flySpeed);
+        System.out.println("Fly Speed: " + flySpeed);
     }
 
     public void fall(){
@@ -50,23 +57,24 @@ public class Player {
     }
 
     public void guard(){
-        status = new PlayerGuard(this, ATTACKING_FIXED_TIMER);
+        state = new PlayerGuard(this, ATTACKING_FIXED_TIMER);
     }
 
     public void attack(){
-        status = new PlayerAttack(this, ATTACKING_FIXED_TIMER);
-        pocket.deploy(new Tomato());
+        state = new PlayerAttack(this, ATTACKING_FIXED_TIMER);
+//        pocket.deploy(new Tomato());
+        pocket.deploy(new Bean());
     }
 
     public void specialAttack() {
 
-        status = new PlayerAttack(this, ATTACKING_FIXED_TIMER);
+        state = new PlayerAttack(this, ATTACKING_FIXED_TIMER);
         pocket.deploy(new Watermelon());
     }
 
-    public void checkStatus(int currentTimer) {
-        if (status.isActive(currentTimer)) return;
-        status = new PlayerIdleGround(this, 0);
+    public void checkStatus() {
+        if (state.isActive()) return;
+        state = new PlayerIdleGround(this, 0);
     }
 
     public boolean checkHitPoint(){
@@ -75,16 +83,24 @@ public class Player {
         return dead;
     }
 
+    public void computeDamage(int damage) {
+        hitPoint -= damage;
+    }
+
+    public void increaseSpeed(int increment) {
+        flySpeed += increment;
+    }
+
+    public void reduceSpeed(int reduction) {
+        flySpeed -= reduction;
+    }
+
 
 
 
     /// SETTER AND GETTER  ///
     public int getHitPoint() {
         return hitPoint;
-    }
-
-    public void setHitPoint(int hitPoint) {
-        this.hitPoint = hitPoint;
     }
 
     public int getPlayerNum() {
@@ -105,15 +121,23 @@ public class Player {
         this.name = name;
     }
 
-    public PlayerState getStatus() {
-        return status;
+    public PlayerState getState() {
+        return state;
     }
 
-    public void setStatus(PlayerState status) {
-        this.status = status;
+    public void setState(PlayerState state) {
+        this.state = state;
     }
 
     public FruitPocket getPocket() {
         return pocket;
+    }
+
+    public DebuffStack getDebuffs() {
+        return debuffs;
+    }
+
+    public int getFlySpeed() {
+        return flySpeed;
     }
 }

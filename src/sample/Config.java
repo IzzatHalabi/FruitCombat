@@ -1,13 +1,13 @@
 package sample;
 
-import java.util.ArrayList;
-
 public class Config {
 
-    public final static int STUN_FIXED_TIMER = 80;
+    public final static int STUN_FIXED_TIMER = 100;
     public final static int GUARD_FIXED_TIMER = 40;
     public final static int HIT_FIXED_TIMER = 15;
     public final static int ATTACKING_FIXED_TIMER = 10;
+
+    public final static int SLOW_FIXED_TIMER = 220;
 
     public final static int PLAYER_1 = 0;
     public final static int PLAYER_2 = 1;
@@ -15,15 +15,38 @@ public class Config {
     public final static int FLY_SPEED = 70;
     public final static int GRAVITY = 2;
 
-    public final static int SPEED = 5;
-    public final static int MOVE_DIRECTION_LEFT = -SPEED;
-    public final static int MOVE_DIRECTION_RIGHT = SPEED;
+    public final static int MOVE_DIRECTION_LEFT = -1;
+    public final static int MOVE_DIRECTION_RIGHT = 1;
+
+    // TODO: Update these later. Most aren't even usable.
+    public final static int NO_DAMAGE = 0;
+    public final static boolean NO_STUN = false;
+    public final static boolean HAS_STUN = true;
+
     public final static int TOMATO = 1;
-    public final static int WATERMELON = 2;
     public final static int TOMATO_DAMAGE = 10;
-    public final static int WATERMELON_DAMAGE = 0;
-    public final static boolean TOMATO_STUN = false ;
-    public final static boolean WATERMELON_STUN = true;
+    public final static boolean TOMATO_STUN = NO_STUN ;
+    public final static int SPEED = 5;
+
+    public final static int WATERMELON = 2;
+    public final static int WATERMELON_DAMAGE = NO_DAMAGE;
+    public final static boolean WATERMELON_STUN = HAS_STUN;
+
+    public final static int GUMMY = 3;
+    public final static int GUMMY_DAMAGE = NO_DAMAGE;
+    public final static int GUMMY_SLOW = 30;
+    public final static boolean GUMMY_STUN = NO_STUN;
+
+    public final static int VINE = 4;
+    public final static int VINE_DAMAGE = NO_DAMAGE;
+    public final static boolean VINE_STUN = NO_STUN;
+    public final static int VINE_SPEED = 7;
+
+    public final static int BEAN = 5;
+    public final static int BEAN_DAMAGE = 5;
+    public final static boolean BEAN_STUN = NO_STUN ;
+    public final static int BEAN_SPEED = 7;
+
 
     public final static int NUM_PLAYER = 2;
     public final static int NUM_FRUIT_EACH = 3;

@@ -197,7 +197,7 @@ public class Main extends Application {
                         }
                     }
                     players.get(i).fall();
-                    players.get(i).checkStatus(time);
+                    players.get(i).checkStatus();
                 }
                 gameOver(this, players.get(PLAYER_1), players.get(PLAYER_2), primaryStage);
 

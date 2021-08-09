@@ -19,7 +19,7 @@ public class PlayerIdleGround extends PlayerState {
     }
 
     @Override
-    public boolean isActive(int currentTimer) {
+    public boolean isActive() {
         return true;
     }
 }

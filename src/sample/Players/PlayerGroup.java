@@ -20,7 +20,8 @@ public class PlayerGroup {
 
         for (Player player : players) {
             player.fall();
-            player.checkStatus(time);
+            player.checkStatus();
+            player.getDebuffs().check();
         }
     }
 
