@@ -1,5 +1,7 @@
 package sample.Fruits;
 
+import sample.Moves.StraightMove;
+
 import static sample.Config.*;
 
 public class Tomato extends Fruit {
@@ -9,12 +11,13 @@ public class Tomato extends Fruit {
     }
 
     public Tomato() {
-        super(TOMATO, TOMATO_DAMAGE, TOMATO_STUN, HIT_FIXED_TIMER, SPEED);
+        super(TOMATO, TOMATO_DAMAGE, new StraightMove(TOMATO_SPEED));
     }
 
     @Override
     public void hitEffects(int currentTime) {
 
         getVictim().computeDamage(getDamage());
+
     }
 }

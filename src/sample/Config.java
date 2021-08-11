@@ -20,33 +20,31 @@ public class Config {
 
     // TODO: Update these later. Most aren't even usable.
     public final static int NO_DAMAGE = 0;
-    public final static boolean NO_STUN = false;
-    public final static boolean HAS_STUN = true;
 
     public final static int TOMATO = 1;
     public final static int TOMATO_DAMAGE = 10;
-    public final static boolean TOMATO_STUN = NO_STUN ;
-    public final static int SPEED = 5;
+    public final static int TOMATO_SPEED = 5;
 
     public final static int WATERMELON = 2;
     public final static int WATERMELON_DAMAGE = NO_DAMAGE;
-    public final static boolean WATERMELON_STUN = HAS_STUN;
+    public final static int WATERMELON_SPEED = 5;
 
     public final static int GUMMY = 3;
     public final static int GUMMY_DAMAGE = NO_DAMAGE;
     public final static int GUMMY_SLOW = 30;
-    public final static boolean GUMMY_STUN = NO_STUN;
+    public final static int GUMMY_SPEED = 5;
 
     public final static int VINE = 4;
     public final static int VINE_DAMAGE = NO_DAMAGE;
-    public final static boolean VINE_STUN = NO_STUN;
     public final static int VINE_SPEED = 7;
 
     public final static int BEAN = 5;
     public final static int BEAN_DAMAGE = 5;
-    public final static boolean BEAN_STUN = NO_STUN ;
     public final static int BEAN_SPEED = 7;
 
+    public final static int BANANA = 6;
+    public final static int BANANA_DAMAGE = 5;
+    public final static int BANANA_SPEED = 5;
 
     public final static int NUM_PLAYER = 2;
     public final static int NUM_FRUIT_EACH = 3;

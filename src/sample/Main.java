@@ -187,7 +187,7 @@ public class Main extends Application {
 
                         fruitGroup[i].getFruitList().get(j).move();
 
-                        if (fruitGroup[i].getFruitList().get(j).hitCheck(players)) {
+                        if (fruitGroup[i].getFruitList().get(j).hitCheck()) {
                             fruitGroup[i].getFruitList().get(j).hitEffects(time);
                             fruitGroup[i].getFruitList().get(j).returnToStore();
                         }

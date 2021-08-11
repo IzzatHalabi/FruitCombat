@@ -53,8 +53,10 @@ public class FruitGroup {
             for (Fruit fruitOutPocket : pocket.getOutPocket()) {
 
                 fruitOutPocket.move();
+                // When Player attack, it deploys Fruit
+                // Fruit be set at OutPocket, thus will automatically move.
 
-                if (fruitOutPocket.hitCheck(playerGroup.getPlayers())) {
+                if (fruitOutPocket.hitCheck()) {
                     fruitOutPocket.hitEffects(time);
                     pocket.returnToStore(fruitOutPocket);
                 }

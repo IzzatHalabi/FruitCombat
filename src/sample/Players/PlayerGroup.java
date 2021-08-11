@@ -6,13 +6,18 @@ import static sample.Config.*;
 
 public class PlayerGroup {
 
-    private ArrayList<Player> players;
+    public static ArrayList<Player> players;
 
     public PlayerGroup() {
 
         players = new ArrayList<>();
         players.add( new Player(PLAYER_1, P1_POS_X, GROUND ) );
         players.add( new Player(PLAYER_2, P2_POS_X, GROUND ) );
+
+        // CHEAT CODE FOR VICTIM ON MOVEDATABINDER
+        for (Player player : players) {
+            player.getPocket().initMoveDataBinder();
+        }
 
     }
 

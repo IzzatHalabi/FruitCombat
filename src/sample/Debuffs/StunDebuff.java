@@ -1,9 +1,7 @@
 package sample.Debuffs;
 
-import sample.MainTemp;
 import sample.PlayerStates.PlayerBeingHit;
 import sample.Players.Player;
-import sample.ResponseStates.InactiveResponse;
 
 public class StunDebuff extends BaseDebuff {
 
@@ -24,11 +22,6 @@ public class StunDebuff extends BaseDebuff {
     @Override
     public String info() {
         return "STUN";
-    }
-
-    @Override
-    public boolean isActive() {
-        return getEndTimer() >= MainTemp.time;
     }
 
     @Override

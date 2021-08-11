@@ -1,6 +1,7 @@
 package sample.Fruits;
 
 import sample.Debuffs.StunDebuff;
+import sample.Moves.StraightMove;
 
 import static sample.Config.*;
 
@@ -11,7 +12,7 @@ public class Watermelon extends Fruit {
     }
 
     public Watermelon() {
-        super(WATERMELON, WATERMELON_DAMAGE, WATERMELON_STUN, STUN_FIXED_TIMER, SPEED);
+        super(WATERMELON, WATERMELON_DAMAGE, new StraightMove(WATERMELON_SPEED));
     }
 
     @Override
@@ -21,5 +22,6 @@ public class Watermelon extends Fruit {
         getVictim().getDebuffs().add(debuff);
 
         System.out.println("PLAYER " + getVictim().getPlayerNum() + " ATTACH " + debuff.info() + " DEBUFF");
+
     }
 }

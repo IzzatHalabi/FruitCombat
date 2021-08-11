@@ -19,9 +19,4 @@ public class PlayerBeingHit extends PlayerState {
         }
         setResponseState(new InactiveResponse());
     }
-
-    @Override
-    public boolean isActive() {
-        return getEndTimer() >= MainTemp.time;
-    }
 }

@@ -62,14 +62,15 @@ public class Player {
 
     public void attack(){
         state = new PlayerAttack(this, ATTACKING_FIXED_TIMER);
-//        pocket.deploy(new Tomato());
-        pocket.deploy(new Bean());
+        pocket.deploy(new Tomato());
+//        pocket.deploy(new Vine());
     }
 
     public void specialAttack() {
 
         state = new PlayerAttack(this, ATTACKING_FIXED_TIMER);
-        pocket.deploy(new Watermelon());
+//        pocket.deploy(new Watermelon());
+        pocket.deploy(new Banana());
     }
 
     public void checkStatus() {

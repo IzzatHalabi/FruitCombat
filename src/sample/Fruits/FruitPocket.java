@@ -1,11 +1,11 @@
 package sample.Fruits;
 
+import sample.Moves.MoveDataBinder;
+import sample.Moves.NoMove;
 import sample.Players.Player;
 import sample.Position;
 
 import java.util.ArrayList;
-
-import static sample.Config.*;
 
 public class FruitPocket {
 
@@ -17,6 +17,7 @@ public class FruitPocket {
 
     private int direction;
     private int throwStart;
+    private MoveDataBinder moveDataBinder;
 
     private FruitGroup fruitGroup;
 
@@ -28,40 +29,37 @@ public class FruitPocket {
         inPocket = new ArrayList<>();
         outPocket = new ArrayList<>();
 
-        if (player.getPlayerNum() == PLAYER_1) {
-            direction = MOVE_DIRECTION_RIGHT;
-            throwStart = P1_THROW_START;
-        } else {
-            direction = MOVE_DIRECTION_LEFT;
-            throwStart = P2_THROW_START;
-        }
+        moveDataBinder = new MoveDataBinder(player);
     }
 
-    public void deploy(Fruit selectedFruit) {
+    public void deploy(Fruit fruit) {
 
         if (inPocket.isEmpty()) return;
 
         int fruitId = inPocket.remove(0).getId();
 
-        selectedFruit.throwInit(fruitId, player.getPos(), direction, throwStart);
+        fruit.init(fruitId, moveDataBinder);
 
-        outPocket.add(selectedFruit);
+        outPocket.add(fruit);
 
-        fruitGroup.getFruitList().set(fruitId, selectedFruit);
-
-//        System.out.println(player.getPos().getX() + PLAYER_WIDTH);
-//        System.out.println(selectedFruit.getPos().getX());
-//        System.out.println(selectedFruit.getDirection());
-
+        fruitGroup.getFruitList().set(fruitId, fruit);
     }
 
     public void returnToStore(Fruit fruit) {
 
+        fruit.setMove(new NoMove());
         fruit.setHitOnce(true);
         fruit.setStandBy(true);
         fruit.getPos().setX(pocketPos.getX());
         fruit.getPos().setY(pocketPos.getY());
         inPocket.add(fruit);
+
+//        System.out.println("IsStandBy? " + fruit.isStandBy());
+//        System.out.println("IsHitOnce? " + fruit.isHitOnce());
+    }
+
+    public void initMoveDataBinder() {
+        moveDataBinder.init();
     }
 
 

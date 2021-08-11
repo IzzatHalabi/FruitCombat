@@ -1,6 +1,7 @@
 package sample.Fruits;
 
 import sample.Debuffs.DisarmDebuff;
+import sample.Moves.StraightMove;
 
 import static sample.Config.*;
 
@@ -11,7 +12,7 @@ public class Vine extends Fruit {
     }
 
     public Vine() {
-        super(VINE, VINE_DAMAGE, VINE_STUN, STUN_FIXED_TIMER, VINE_SPEED);
+        super(VINE, VINE_DAMAGE, new StraightMove(VINE_SPEED));
     }
 
     @Override

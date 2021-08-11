@@ -8,6 +8,7 @@ import static sample.Config.P2_BEING_HIT;
 import static sample.Config.PLAYER_1;
 
 public class PlayerDisarmed extends PlayerState {
+
     public PlayerDisarmed(Player player, int statusTimer) {
         super(player, statusTimer);
         if (player.getPlayerNum() == PLAYER_1) {
